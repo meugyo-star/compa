@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lesson 5 Grammar Check+</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--ink:#1f2937;--sub:#64748b;--line:#dbe3ec;--accent:#2563eb;--soft:#eef4ff;--orange:#f59e0b;--green:#16a34a;--greenSoft:#ecfdf3;--red:#dc2626;--redSoft:#fff1f2;--dark:#111827}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Noto Sans KR","Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input{font:inherit}.wrap{max-width:900px;margin:0 auto;padding:18px}
+.top{background:linear-gradient(135deg,#eff6ff,#f8fbff);border:1px solid #d7e5ff;border-radius:22px;padding:22px;margin-bottom:16px}
+h1{margin:0 0 8px;font-size:28px}.desc{color:var(--sub);line-height:1.55;font-size:14px}
+.student{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.student input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;background:white}
+.panel{background:white;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 6px 24px rgba(15,23,42,.05)}
+.startGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.levelCard{border:2px solid var(--line);border-radius:18px;padding:20px;background:#fff;text-align:left;cursor:pointer;transition:.15s}.levelCard:hover{transform:translateY(-1px);border-color:#9fbdf5}.levelCard.basic:hover{background:#f8fbff}.levelCard.advanced:hover{background:#fffaf3}.levelTitle{font-size:22px;font-weight:900;margin-bottom:6px}.levelMeta{font-size:14px;color:var(--sub);line-height:1.55}.advanced .levelTitle{color:#c2410c}.basic .levelTitle{color:var(--accent)}
+.historyBox{margin-top:18px}.historyHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.historyTitle{font-weight:900}.historyList{display:grid;gap:9px}.historyItem{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fbfdff}.historyItem.latest{border-color:#93c5fd;background:#eff6ff}.historyLeft{min-width:0}.historyMain{font-weight:800}.historySub{font-size:12px;color:var(--sub);margin-top:3px}.pill{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:800}.pill.basic{background:#eef4ff;color:var(--accent)}.pill.advanced{background:#fff7ed;color:#c2410c}.empty{font-size:14px;color:var(--sub);padding:8px 2px}
+.progressBox{background:white;border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:16px}.progressText{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}.bar{height:10px;background:#e8eef5;border-radius:999px;overflow:hidden}.bar>div{height:100%;width:0;background:var(--accent);transition:.25s}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 6px 24px rgba(15,23,42,.05)}.badge{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;padding:7px 10px;border-radius:999px;background:var(--soft);color:var(--accent);margin-bottom:14px}.badge.advanced{background:#fff7ed;color:#c2410c}
+.ko{font-size:22px;font-weight:800;line-height:1.45;margin-bottom:8px}.zh,.ru{font-size:15px;line-height:1.55;color:#475569;margin-bottom:4px}.questionBlock{padding-bottom:16px;border-bottom:1px solid #edf1f5}.options{display:grid;gap:10px;margin-top:16px}.option{display:flex;align-items:flex-start;gap:10px;padding:13px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;transition:.15s;font-size:16px;line-height:1.4}.option:hover{border-color:#9fbdf5;background:#f8fbff}.option.selected{border-color:var(--accent);background:#eef4ff}.option input{margin-top:4px}.textAnswers{margin-top:2px}.textAnswerRow{display:grid;grid-template-columns:1fr 1fr;gap:12px}.inputLabel{font-size:13px;color:var(--sub);font-weight:700;margin-bottom:7px}.textAnswer{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:17px}.textAnswer:focus{outline:none;border-color:#93b4f4;box-shadow:0 0 0 3px #eaf1ff}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}button{border:0;border-radius:12px;padding:12px 18px;font-size:15px;font-weight:800;cursor:pointer}.secondary{background:#e9eef5;color:#334155}.primary{background:var(--accent);color:white}.primary:disabled{opacity:.45;cursor:not-allowed}.dark{background:var(--dark);color:#fff}.orange{background:#ea580c;color:#fff}.ghost{background:#fff;border:1px solid var(--line);color:#334155}
+.hidden{display:none!important}.resultTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}.scoreHero{font-size:42px;font-weight:1000;line-height:1}.scoreSub{font-size:14px;color:var(--sub);margin-top:6px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.actions button{flex:1;min-width:160px}
+.resultList{display:grid;gap:10px;margin-top:18px}.resultItem{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}.resultBtn{width:100%;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;text-align:left;padding:14px 15px;background:#fff;color:var(--ink);border-radius:0}.resultBtn:hover{background:#fafcff}.resultNum{font-weight:900}.resultStatus{font-size:18px}.resultTitle{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.resultArrow{font-size:12px;color:var(--sub)}.resultItem.correct{border-color:#bbf7d0}.resultItem.wrong{border-color:#fecdd3}.resultItem.correct .resultBtn{background:#fbfffc}.resultItem.wrong .resultBtn{background:#fffafa}.detail{display:none;border-top:1px solid var(--line);padding:14px 16px;background:#fbfdff}.detail.open{display:block}.detailGrid{display:grid;gap:8px}.detailLine{font-size:14px;line-height:1.55}.detailLine b{display:inline-block;min-width:72px}.exp{margin-top:6px;padding:10px 12px;border-radius:12px;background:#f1f5f9;line-height:1.55;font-size:14px}.correctAns{color:var(--green);font-weight:900}.wrongAns{color:var(--red);font-weight:900}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.sumBox{border:1px solid var(--line);border-radius:16px;background:#fff;padding:14px;text-align:center}.sumLabel{font-size:12px;color:var(--sub)}.sumVal{font-size:25px;font-weight:900;margin-top:4px}
+.smallNote{font-size:12px;color:var(--sub);line-height:1.45;margin-top:10px}
+@media(max-width:700px){.student,.startGrid,.textAnswerRow,.summary{grid-template-columns:1fr}.ko{font-size:19px}.qcard,.panel{padding:18px}.scoreHero{font-size:36px}.actions button{min-width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section id="startScreen">
+    <div class="top">
+      <h1>Lesson 5 Grammar Check+</h1>
+      <div class="desc">기본 또는 심화를 선택해 바로 시작하세요. 시험 기록은 이 기기의 브라우저에만 저장됩니다.<br>选择基础或进阶开始。记录只保存在本设备浏览器中。<br>Выберите базовый или продвинутый уровень. История хранится только в браузере этого устройства.</div>
+      <div class="student">
+        <input id="className" placeholder="반 / 班级 / Класс" />
+        <input id="studentName" placeholder="이름 / 姓名 / Имя" />
+      </div>
+    </div>
+
+    <div class="panel">
+      <div style="font-size:18px;font-weight:900;">난이도 선택 / 选择难度 / Выберите уровень</div>
+      <div class="startGrid">
+        <button class="levelCard basic" onclick="startQuiz('basic')">
+          <div class="levelTitle">기본</div>
+          <div class="levelMeta">12문제 · 비교급/최상급 + There is/are<br>12题基础练习<br>12 базовых заданий</div>
+        </button>
+        <button class="levelCard advanced" onclick="startQuiz('advanced')">
+          <div class="levelTitle">심화</div>
+          <div class="levelMeta">8문제 · 직접 입력 + There was/were<br>8题进阶练习<br>8 заданий повышенной сложности</div>
+        </button>
+      </div>
+
+      <div class="historyBox">
+        <div class="historyHead">
+          <div class="historyTitle">내 최근 기록 / 我的记录 / Мои результаты</div>
+          <button class="ghost" style="padding:8px 10px;font-size:12px" onclick="clearHistory()">기록 지우기</button>
+        </div>
+        <div id="historyList" class="historyList"></div>
+        <div class="smallNote">같은 기기·같은 브라우저에서만 기록이 이어집니다. 브라우저 데이터를 지우면 기록도 사라집니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quizScreen" class="hidden">
+    <div class="progressBox">
+      <div class="progressText"><span id="progressLabel">1 / 12</span><span id="sectionLabel">기본</span></div>
+      <div class="bar"><div id="barFill"></div></div>
+    </div>
+    <div class="qcard">
+      <div id="badge" class="badge">기본 / 基础 / Базовый</div>
+      <div class="questionBlock"><div class="ko" id="koQ"></div><div class="zh" id="zhQ"></div><div class="ru" id="ruQ"></div></div>
+      <div id="options" class="options"></div>
+      <div class="nav"><button id="prevBtn" class="secondary">← 이전</button><button id="nextBtn" class="primary" disabled>다음 →</button></div>
+    </div>
+  </section>
+
+  <section id="resultScreen" class="hidden">
+    <div class="top">
+      <div class="resultTop">
+        <div>
+          <div id="resultBadge" class="badge">기본</div>
+          <div id="resultScore" class="scoreHero">0 / 12</div>
+          <div id="resultWho" class="scoreSub"></div>
+        </div>
+        <div id="resultDate" class="scoreSub"></div>
+      </div>
+      <div class="summary">
+        <div class="sumBox"><div class="sumLabel">정답</div><div id="correctCount" class="sumVal">0</div></div>
+        <div class="sumBox"><div class="sumLabel">오답</div><div id="wrongCount" class="sumVal">0</div></div>
+        <div class="sumBox"><div class="sumLabel">정답률</div><div id="accuracy" class="sumVal">0%</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div style="font-size:18px;font-weight:900;">문제별 결과</div>
+      <div class="desc" style="margin-top:4px;">틀린 문제를 누르면 내 답, 정답, 간단한 풀이를 볼 수 있습니다.</div>
+      <div id="resultList" class="resultList"></div>
+      <div class="actions">
+        <button class="dark" onclick="retrySame()">같은 단계 재시험</button>
+        <button class="secondary" onclick="goHome()">처음 선택 화면으로</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const qs = [
+  {level:"basic", type:"choice", ko:"tall의 비교급은?", zh:"tall 的比较级是？", ru:"Какая сравнительная степень у tall?", options:["tall","taller","tallest","more tall"], answer:1, explanation:"짧은 형용사 tall에는 -er를 붙여 taller가 됩니다."},
+  {level:"basic", type:"choice", ko:"small의 최상급은?", zh:"small 的最高级是？", ru:"Какая превосходная степень у small?", options:["small","smaller","smallest","most small"], answer:2, explanation:"짧은 형용사 small에는 -est를 붙여 smallest가 됩니다."},
+  {level:"basic", type:"choice", ko:"wide의 비교급은?", zh:"wide 的比较级是？", ru:"Какая сравнительная степень у wide?", options:["wider","wideer","widest","more wide"], answer:0, explanation:"wide처럼 e로 끝나면 r만 붙여 wider가 됩니다."},
+  {level:"basic", type:"choice", ko:"large의 최상급은?", zh:"large 的最高级是？", ru:"Какая превосходная степень у large?", options:["larger","largest","largeest","most large"], answer:1, explanation:"large처럼 e로 끝나면 st만 붙여 largest가 됩니다."},
+  {level:"basic", type:"choice", ko:"fast의 비교급은?", zh:"fast 的比较级是？", ru:"Какая сравнительная степень у fast?", options:["faster","fastest","more fast","fastter"], answer:0, explanation:"fast는 짧은 형용사이므로 -er를 붙여 faster가 됩니다."},
+  {level:"basic", type:"choice", ko:"다음 중 맞는 것은?", zh:"下面哪一个是正确的？", ru:"Какой вариант правильный?", options:["tall → more tall","small → smalller","wide → wider","fast → more fast"], answer:2, explanation:"wide는 e로 끝나므로 r만 붙여 wider가 됩니다."},
+  {level:"basic", type:"choice", ko:"학생 한 명이 교실에 있다. → There ___ a student in the classroom.", zh:"教室里有一名学生。→ There ___ a student in the classroom.", ru:"В классе есть один ученик. → There ___ a student in the classroom.", options:["is","are"], answer:0, explanation:"a student는 한 명(단수)이므로 There is를 씁니다."},
+  {level:"basic", type:"choice", ko:"책상 위에 책이 세 권 있다. → There ___ three books on the desk.", zh:"桌子上有三本书。→ There ___ three books on the desk.", ru:"На столе лежат три книги. → There ___ three books on the desk.", options:["is","are"], answer:1, explanation:"three books는 복수이므로 There are를 씁니다."},
+  {level:"basic", type:"choice", ko:"냉장고에 우유가 조금 있다. → There ___ some milk in the refrigerator.", zh:"冰箱里有一些牛奶。→ There ___ some milk in the refrigerator.", ru:"В холодильнике есть немного молока. → There ___ some milk in the refrigerator.", options:["is","are"], answer:0, explanation:"milk는 셀 수 없는 명사로 단수처럼 취급하므로 There is를 씁니다."},
+  {level:"basic", type:"choice", ko:"방 안에 고양이가 두 마리 있다. → There ___ two cats in the room.", zh:"房间里有两只猫。→ There ___ two cats in the room.", ru:"В комнате есть две кошки. → There ___ two cats in the room.", options:["is","are"], answer:1, explanation:"two cats는 복수이므로 There are를 씁니다."},
+  {level:"basic", type:"choice", ko:"책상 위에 책이 세 권 있다. 알맞은 문장은?", zh:"桌子上有三本书。哪个句子正确？", ru:"На столе лежат три книги. Какое предложение правильное?", options:["There is three books.","There are three books."], answer:1, explanation:"three books가 복수이므로 There are three books가 맞습니다."},
+  {level:"basic", type:"choice", ko:"컵 안에 물이 조금 있다. 알맞은 문장은?", zh:"杯子里有一些水。哪个句子正确？", ru:"В чашке есть немного воды. Какое предложение правильное?", options:["There are some water.","There is some water."], answer:1, explanation:"water는 셀 수 없는 명사이므로 There is some water가 맞습니다."},
+  {level:"advanced", type:"text2", ko:"big의 비교급과 최상급을 직접 쓰세요.", zh:"请直接写出 big 的比较级和最高级。", ru:"Напишите сравнительную и превосходную степени слова big.", labels:["비교급 / 比较级 / сравнительная","최상급 / 最高级 / превосходная"], answers:["bigger","biggest"], explanation:"big는 단모음+단자음으로 끝나므로 마지막 자음 g를 한 번 더 쓰고 -er/-est를 붙입니다: bigger, biggest."},
+  {level:"advanced", type:"text2", ko:"happy의 비교급과 최상급을 직접 쓰세요.", zh:"请直接写出 happy 的比较级和最高级。", ru:"Напишите сравнительную и превосходную степени слова happy.", labels:["비교급 / 比较级 / сравнительная","최상급 / 最高级 / превосходная"], answers:["happier","happiest"], explanation:"happy처럼 자음+y로 끝나면 y를 i로 바꾸고 -er/-est를 붙입니다: happier, happiest."},
+  {level:"advanced", type:"text1", ko:"expensive의 비교급을 직접 쓰세요.", zh:"请直接写出 expensive 的比较级。", ru:"Напишите сравнительную степень слова expensive.", labels:["비교급 / 比较级 / сравнительная"], answers:["more expensive"], explanation:"expensive처럼 긴 형용사는 보통 앞에 more를 붙여 more expensive라고 합니다."},
+  {level:"advanced", type:"text2", ko:"good의 비교급과 최상급을 직접 쓰세요.", zh:"请直接写出 good 的比较级和最高级。", ru:"Напишите сравнительную и превосходную степени слова good.", labels:["비교급 / 比较级 / сравнительная","최상급 / 最高级 / превосходная"], answers:["better","best"], explanation:"good은 불규칙 변화입니다: good → better → best."},
+  {level:"advanced", type:"choice", ko:"There ___ a cake on the table yesterday.", zh:"请选择正确的词：There ___ a cake on the table yesterday.", ru:"Выберите правильное слово: There ___ a cake on the table yesterday.", options:["is","are","was","were"], answer:2, explanation:"yesterday는 과거이고 a cake는 단수이므로 There was가 맞습니다."},
+  {level:"advanced", type:"choice", ko:"There ___ two people here last night.", zh:"请选择正确的词：There ___ two people here last night.", ru:"Выберите правильное слово: There ___ two people here last night.", options:["is","are","was","were"], answer:3, explanation:"last night는 과거이고 two people은 복수이므로 There were가 맞습니다."},
+  {level:"advanced", type:"choice", ko:"다음 문장에서 틀린 부분은? — There was three books on the desk yesterday.", zh:"下面句子中错误的部分是？— There was three books on the desk yesterday.", ru:"Какая часть предложения неправильная? — There was three books on the desk yesterday.", options:["There","was","three books","yesterday"], answer:1, explanation:"three books는 복수이고 문장은 과거이므로 was가 아니라 were가 와야 합니다."},
+  {level:"advanced", type:"choice", ko:"다음 중 맞는 문장은?", zh:"下面哪一个句子是正确的？", ru:"Какое предложение правильное?", options:["There were a cat in the room yesterday.","There was three students at school yesterday.","There was a cat in the room yesterday.","There is two books on the desk now."], answer:2, explanation:"a cat은 단수이고 yesterday는 과거이므로 There was a cat in the room yesterday가 맞습니다."}
+];
+
+let currentLevel = 'basic';
+let phaseQs = [];
+let index = 0;
+let answers = [];
+
+const startScreen=document.getElementById('startScreen');
+const quizScreen=document.getElementById('quizScreen');
+const resultScreen=document.getElementById('resultScreen');
+const koQ=document.getElementById('koQ'), zhQ=document.getElementById('zhQ'), ruQ=document.getElementById('ruQ');
+const options=document.getElementById('options'), nextBtn=document.getElementById('nextBtn'), prevBtn=document.getElementById('prevBtn');
+const progressLabel=document.getElementById('progressLabel'), sectionLabel=document.getElementById('sectionLabel'), barFill=document.getElementById('barFill'), badge=document.getElementById('badge');
+
+function norm(s){return (s||'').trim().toLowerCase().replace(/\s+/g,' ')}
+function studentInfo(){
+  const cls=document.getElementById('className').value.trim();
+  const name=document.getElementById('studentName').value.trim();
+  return {cls,name,label:[cls,name].filter(Boolean).join('  ')||'학생 정보 미입력'};
+}
+function profileKey(){
+  const {cls,name}=studentInfo();
+  return `lesson5_history::${(cls||'_').toLowerCase()}::${(name||'_').toLowerCase()}`;
+}
+function saveIdentity(){
+  const {cls,name}=studentInfo();
+  localStorage.setItem('lesson5_last_identity',JSON.stringify({cls,name}));
+}
+function restoreIdentity(){
+  try{const x=JSON.parse(localStorage.getItem('lesson5_last_identity')||'{}'); if(x.cls)document.getElementById('className').value=x.cls;if(x.name)document.getElementById('studentName').value=x.name;}catch(e){}
+}
+function isAnswered(q,a){
+  if(q.type==='choice') return a!==null && a!==undefined;
+  if(q.type==='text1') return Array.isArray(a)&&norm(a[0])!=='';
+  if(q.type==='text2') return Array.isArray(a)&&norm(a[0])!==''&&norm(a[1])!=='';
+  return false;
+}
+function isCorrect(q,a){
+  if(q.type==='choice') return a===q.answer;
+  if(!Array.isArray(a)) return false;
+  return q.answers.every((ans,i)=>norm(a[i])===norm(ans));
+}
+function getCorrectText(q){
+  if(q.type==='choice') return q.options[q.answer];
+  return q.answers.join(' / ');
+}
+function getStudentAnswerText(q,a){
+  if(q.type==='choice') return (a===null||a===undefined)?'미응답':q.options[a];
+  if(!Array.isArray(a)) return '미응답';
+  return a.map(x=>x||'(빈칸)').join(' / ');
+}
+function startQuiz(level){
+  saveIdentity(); currentLevel=level; phaseQs=qs.filter(q=>q.level===level); index=0; answers=Array(phaseQs.length).fill(null);
+  startScreen.classList.add('hidden'); resultScreen.classList.add('hidden'); quizScreen.classList.remove('hidden'); render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function render(){
+  const q=phaseQs[index]; koQ.textContent=q.ko;zhQ.textContent=q.zh;ruQ.textContent=q.ru;options.innerHTML='';
+  if(q.type==='choice'){
+    q.options.forEach((opt,i)=>{
+      const label=document.createElement('label');label.className='option'+(answers[index]===i?' selected':'');
+      const radio=document.createElement('input');radio.type='radio';radio.name='q';radio.checked=answers[index]===i;
+      radio.addEventListener('change',()=>{answers[index]=i;document.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));label.classList.add('selected');nextBtn.disabled=false;});
+      const span=document.createElement('span');span.textContent=`${i+1}. ${opt}`;label.append(radio,span);options.appendChild(label);
+    });
+  } else {
+    const box=document.createElement('div');box.className='textAnswers';
+    const arr=Array.isArray(answers[index])?answers[index]:Array(q.answers.length).fill('');answers[index]=arr;
+    const row=document.createElement('div');row.className=q.type==='text2'?'textAnswerRow':'';
+    q.answers.forEach((_,i)=>{const wrap=document.createElement('div');const lab=document.createElement('div');lab.className='inputLabel';lab.textContent=q.labels[i];const inp=document.createElement('input');inp.className='textAnswer';inp.type='text';inp.autocomplete='off';inp.spellcheck=false;inp.placeholder='직접 입력 / 直接输入 / Введите ответ';inp.value=arr[i]||'';inp.addEventListener('input',()=>{answers[index][i]=inp.value;nextBtn.disabled=!isAnswered(q,answers[index]);});wrap.append(lab,inp);row.appendChild(wrap);});
+    box.appendChild(row);options.appendChild(box);
+  }
+  progressLabel.textContent=`${index+1} / ${phaseQs.length}`;barFill.style.width=`${((index+1)/phaseQs.length)*100}%`;
+  const adv=currentLevel==='advanced';sectionLabel.textContent=adv?'심화 / 进阶 / Продвинутый':'기본 / 基础 / Базовый';badge.textContent=sectionLabel.textContent;badge.className='badge'+(adv?' advanced':'');
+  prevBtn.style.visibility=index===0?'hidden':'visible';nextBtn.textContent=index===phaseQs.length-1?'결과 보기':'다음 →';nextBtn.disabled=!isAnswered(q,answers[index]);
+}
+prevBtn.onclick=()=>{if(index>0){index--;render();}};
+nextBtn.onclick=()=>{if(!isAnswered(phaseQs[index],answers[index]))return;if(index<phaseQs.length-1){index++;render();}else finishQuiz();};
+
+function finishQuiz(){
+  const score=phaseQs.reduce((s,q,i)=>s+(isCorrect(q,answers[i])?1:0),0); const now=new Date();
+  const rec={id:Date.now(),level:currentLevel,score,total:phaseQs.length,when:now.toISOString(),student:studentInfo().label};
+  const key=profileKey();let hist=[];try{hist=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){};hist.unshift(rec);localStorage.setItem(key,JSON.stringify(hist.slice(0,50)));saveIdentity();
+  showResults(rec);renderHistory();
+}
+function showResults(rec){
+  quizScreen.classList.add('hidden');startScreen.classList.add('hidden');resultScreen.classList.remove('hidden');
+  const adv=currentLevel==='advanced';const score=rec.score,total=rec.total,wrong=total-score;
+  const rb=document.getElementById('resultBadge');rb.textContent=adv?'심화 / 进阶 / Продвинутый':'기본 / 基础 / Базовый';rb.className='badge'+(adv?' advanced':'');
+  document.getElementById('resultScore').textContent=`${score} / ${total}`;document.getElementById('resultWho').textContent=studentInfo().label;
+  document.getElementById('resultDate').textContent=new Date(rec.when).toLocaleString('ko-KR');document.getElementById('correctCount').textContent=score;document.getElementById('wrongCount').textContent=wrong;document.getElementById('accuracy').textContent=`${Math.round(score/total*100)}%`;
+  const list=document.getElementById('resultList');list.innerHTML='';
+  phaseQs.forEach((q,i)=>{const ok=isCorrect(q,answers[i]);const item=document.createElement('div');item.className='resultItem '+(ok?'correct':'wrong');const btn=document.createElement('button');btn.className='resultBtn';btn.innerHTML=`<span class="resultStatus">${ok?'✅':'❌'}</span><span class="resultTitle">${i+1}. ${q.ko}</span><span class="resultArrow">${ok?'확인':'풀이 보기'} ▾</span>`;const detail=document.createElement('div');detail.className='detail';detail.innerHTML=`<div class="detailGrid"><div class="detailLine"><b>내 답</b> <span class="${ok?'correctAns':'wrongAns'}">${escapeHtml(getStudentAnswerText(q,answers[i]))}</span></div><div class="detailLine"><b>정답</b> <span class="correctAns">${escapeHtml(getCorrectText(q))}</span></div><div class="exp"><b>풀이</b><br>${escapeHtml(q.explanation)}</div></div>`;btn.onclick=()=>{detail.classList.toggle('open');btn.querySelector('.resultArrow').textContent=(detail.classList.contains('open')?(ok?'닫기':'풀이 닫기'):(ok?'확인':'풀이 보기'))+(detail.classList.contains('open')?' ▴':' ▾');};item.append(btn,detail);list.appendChild(item);});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function escapeHtml(str){return String(str).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function retrySame(){startQuiz(currentLevel)}
+function goHome(){resultScreen.classList.add('hidden');quizScreen.classList.add('hidden');startScreen.classList.remove('hidden');renderHistory();window.scrollTo({top:0,behavior:'smooth'});}
+function readHistory(){let h=[];try{h=JSON.parse(localStorage.getItem(profileKey())||'[]')}catch(e){}return Array.isArray(h)?h:[];}
+function renderHistory(){
+  const box=document.getElementById('historyList');const hist=readHistory();box.innerHTML='';
+  if(!hist.length){box.innerHTML='<div class="empty">아직 기록이 없습니다. 기본 또는 심화를 선택해 시작하세요.</div>';return;}
+  hist.forEach((r,i)=>{const el=document.createElement('div');el.className='historyItem'+(i===0?' latest':'');const date=new Date(r.when).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});el.innerHTML=`<div class="historyLeft"><div class="historyMain"><span class="pill ${r.level}">${r.level==='basic'?'기본':'심화'}</span> ${r.score} / ${r.total}${i===0?' · 최신':''}</div><div class="historySub">${date}</div></div><div style="font-weight:900;font-size:20px;">${Math.round(r.score/r.total*100)}%</div>`;box.appendChild(el);});
+}
+function clearHistory(){
+  if(!confirm('이 학생의 이 기기 기록을 모두 지울까요?'))return;localStorage.removeItem(profileKey());renderHistory();
+}
+['className','studentName'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{saveIdentity();renderHistory();}));
+restoreIdentity();renderHistory();
+</script>
+</body>
+</html>
